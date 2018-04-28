@@ -1,9 +1,14 @@
 const User = require('../models/User');
 const gravatar = require('gravatar');
 const bcrypt = require('bcryptjs');
+const validateRegisterInput = require('../validation/register');
 
 module.exports = {
   users(req, res) {
+    const { errors, isValid } = validateRegisterInput(req.body);
+    if(!isValid) {
+      return res.status(400).json(errors);
+    }
     User.findOne({email: req.body.emai})
     .then(user => {
       if(user) {
