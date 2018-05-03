@@ -23,6 +23,7 @@ require('./config/passport')(passport);
 
 // app.get('/', (req, res) => res.send('hello warrup'));
 
+//Api handlers
 app.use('/api/users', users);
 app.use('/api/profile', profile);
 app.use('/api/posts', posts);
