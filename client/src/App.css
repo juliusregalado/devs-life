@@ -1,3 +1,7 @@
+body {
+  font-family:  sans-serif, Arial, Helvetica;
+}
+
 img {
   width: 100%;
 }
@@ -7,17 +11,17 @@ img {
   background: url('./img/background1.jpg') no-repeat;
   background-size: cover;
   background-position: center;
-  height: 87vh;
+  height: 86vh;
   margin-top: -24px;
   margin-bottom: -50px;
 }
 
 .landing-inner {
-  padding-top: 160px;
+  padding-top: 180px;
 }
 
 .dark-overlay {
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.6);
   position: absolute;
   top: 0;
   left: 0;
@@ -36,4 +40,31 @@ img {
 
 .form-control::placeholder {
   color: #bbb !important;
+}
+
+h1.display-3 {
+  font-family: Arial;
+  word-spacing: 10px;
+  letter-spacing: 2px;
+  font-size: 60px;
+}
+
+a.btn.btn-lg {
+  font-size: 15px;
+  width: 150px;
+}
+
+/* --------------------------
+        MEDIA QUERIES
+--------------------------- */
+
+@media(max-width: 678px) {
+  .landing-inner {
+    padding-top: 150px;
+  }
+
+  h1.display-3 {
+    font-family: Arial;
+    font-size: 40px;
+  }
 }
