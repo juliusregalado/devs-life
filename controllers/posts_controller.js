@@ -5,19 +5,20 @@ const validatePostInput = require('../validation/post');
 
 module.exports= {
 
+// @route  GET api/posts || @desc  Get Posts || Public  
   getAllPosts(req, res) {
     Post.find()
     .sort({ date: -1 })
     .then(posts => res.json(posts))
     .catch(err => res.status(404).json({ error: 'No Post Found' }))
   },
-
+// @route GET api/posts/:id || @desc Get Post by id || Public  
   getPost(req, res) {
     Post.findById(req.params.id)
     .then(posts => res.json(posts))
     .catch(err => res.status(404).json({ error: 'No post found for that ID' }))
   },
-
+  // @route POST api/posts|| @desc Create Post|| Secured
   createPost(req, res) {
     const { errors, isValid } = validatePostInput(req.body);
     if(!isValid) {
@@ -33,7 +34,7 @@ module.exports= {
     .then(post => res.json(post))
     .catch(err => res.status(404).json(err))
   },
-
+  // @route DELETE api/posts/:id || @desc Delete Post || Secured 
   deletePost(req, res) {
     Profile.findOne({user: req.user.id})
     .then(profile => {
@@ -52,7 +53,7 @@ module.exports= {
     })
     .catch(err => res.status(404).json(err))
   },
-
+// @route POST api/posts/like/:id || @descLike a Post ||Secured
   likeAPost(req, res) {
     Profile.findOne({user: req.user.id})
     .then(profile => {
@@ -70,7 +71,7 @@ module.exports= {
     })
     .catch(err => res.status(404).json(err))
   },
-
+// @route POST api/posts/:id || @desc Unlike a post || Secured 
   unLikeAPost(req, res) {
     Profile.findOne({user: req.user.id})
     .then(profile => {
@@ -89,7 +90,7 @@ module.exports= {
     })
     .catch(err => res.status(404).json(err))
   },
-
+// @route POST api/posts/comment/:post_id || @desc Add comment to post || Secured
   addComment(req, res) {
     console.log('addComment -->', req.params, req.body)
     const { errors, isValid } = validatePostInput(req.body);
@@ -102,7 +103,7 @@ module.exports= {
         text: req.body.text,
         name: req.body.name,
         avatar: req.body.avatar,
-        user: req.body.id
+        user: req.user.id
       };
       post.comments.unshift(newComment);
       post.save()
@@ -111,7 +112,7 @@ module.exports= {
     })
     .catch(err => res.status(404).json(err))
   },
-
+  // @route DELETE api/posts/comment/:post_id/:comment_id || @desc Remove comment || Secured
   deleteComment(req, res) {
     console.log('delete comment -->', req.params)
     Post.findById(req.params.post_id)

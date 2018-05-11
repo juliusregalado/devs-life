@@ -11,6 +11,8 @@ class CommentItem extends Component {
     const { comment, postId, auth } = this.props;
     return (
       <div className="card card-body mb-3">
+      {console.log(comment)}
+      {console.log(auth)}
         <div className="row">
           <div className="col-md-2">
             <a href="profile.html">
@@ -25,7 +27,7 @@ class CommentItem extends Component {
           </div>
           <div className="col-md-10">
             <p className="lead">{comment.text}</p>
-            {comment.name === auth.user.name ? (
+            {comment.user === auth.user.id ? (
               <button 
                 onClick={this.handleDelete.bind(this, postId, comment._id)} 
                 type="button" 
