@@ -17,6 +17,9 @@ const ProfileSchema = new Schema({
   website: {
     type: String
   },
+  location: {
+    type: String
+  },
   status: {
     type: String,
     require: true

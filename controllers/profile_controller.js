@@ -14,7 +14,7 @@ module.exports = {
         errors.noprofile = 'There is no profile for this user';
         return res.status(404).json(errors);
       }
-      console.log('profile finOne(get)--->', profile)
+      // console.log('profile finOne(get)--->', profile)
       res.json(profile)
     })
     .catch(err => res.status(404).json(err));
@@ -46,7 +46,7 @@ module.exports = {
       res.json(profile);
     })
     .catch(err => res.status(404).json(err));
-    console.log(req.params)
+    // console.log(req.params)
   },
 
   fetchViaId(req,res) {
@@ -99,7 +99,6 @@ module.exports = {
         .then(profile => {
           res.json(profile)
         })
-        console.log('updated profile--->', profile)
       } else {
         Profile.findOne({ handle: profileFields.handle }).then(profile => {
           //if handle exist send error
@@ -112,7 +111,6 @@ module.exports = {
             res.json(profile)
           })
         })
-        console.log('new profile--->', profile)
       }
     })
   },

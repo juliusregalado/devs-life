@@ -106,10 +106,7 @@ module.exports= {
       };
       post.comments.unshift(newComment);
       post.save()
-      .then(post => res.json({
-        msg: 'ok',
-        saved: post
-      }))
+      .then(post => res.json(post))
       .catch(err => res.status(404).json(err))
     })
     .catch(err => res.status(404).json(err))
@@ -119,13 +116,25 @@ module.exports= {
     console.log('delete comment -->', req.params)
     Post.findById(req.params.post_id)
     .then(post => {
-      const removeIndex = post.comments.map(el => el.id.toString()).indexOf(req.params.comment_id)
+      if(
+        post.comments.filter(
+          comment => comment._id.toString() === req.params.comment_id
+        ).length === 0
+      ) {
+        return res.status(404).json({msg: 'Comment not found'});
+      }
+      const removeIndex = post.comments
+      .map(el => el.id.toString())
+      .indexOf(req.params.comment_id)
       post.comments.splice(removeIndex, 1)
       post.save()
       .then(post => res.json(post))
       .catch(err => res.status(404).json(err))
     })
-    .catch()
+    .catch(err =>res.status(404).json({
+      msg: 'wtf',
+      err: err
+    }))
   }
 
 }
